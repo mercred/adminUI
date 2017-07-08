@@ -1,38 +1,28 @@
 firebase.initializeApp(config);
-var db = firebase.database(); 
-var queried=false;
-var snapshotGlobal;
+var categoriesList=[];
 
 
 
 
 function main() {
-queryQuestions("questions");  
-
-  
-	
+getCategoriesListDBAndDisplay("Categories");
 }
 
 
-//retrieves whole questions subtree, CALL ONLY ONCE or on new category creation.
-function queryQuestions(parent){
-var queryCategories = db.ref(parent).orderByKey();
-  queryCategories.once("value").then(
-    function(snapshot) {
-	 queried=true; 
-	 snapshotGlobal=snapshot;
-	 var categoriesList=getCategories();
-	 displayCategories(categoriesList);
-    });
-}
 
-function displayCategories(cat_list){
+
+
+function displayCategories(){
   var html_list = document.getElementById("category_list");
-  for(i=0;i<cat_list.length;i++){
+  while (html_list.firstChild) {
+    html_list.removeChild(html_list.firstChild);
+  }
+  
+  for(i=0;i<categoriesList.length;i++){
     var entry = document.createElement('li');
 	entry.addEventListener('click', clickEvent);    
 	var underlineText = document.createElement("U");   
-    underlineText.appendChild(document.createTextNode(cat_list[i]));
+    underlineText.appendChild(document.createTextNode(categoriesList[i]));
 	entry.appendChild(underlineText);	
     html_list.appendChild(entry);
   }
@@ -43,25 +33,65 @@ var clickEvent = function( e ){
       alert( 'Clicked! ' + e.target.innerText );
 }
 
-
-//returns list of all categories
-function getCategories(){
-  var categoriesList=[];
-  snapshotGlobal.forEach(function(childSnapshot) {
-        // key will be names of categories
-        var key = childSnapshot.key;
-  	  categoriesList.push(key);
-  	  console.log(key);
-        // childData will be the actual contents of the child
-        //var childData = childSnapshot.val();
-    }); 
-  return categoriesList; 
+function createEmptyCategory(){
+  var categoryName = document.getElementById("categoryName").value;
+  document.getElementById("categoryName").value=null;
+  if(categoriesList.contains(categoryName)){
+  	alert("Category with this name already exists!");  
+  }else{
+  	  createEmptyCategoryDB(categoryName);
+	  getCategoriesListDBAndDisplay("Categories");
+	  	    	  
+  }
 }
-function createCategory(){
-//1) check that categoryname is unique
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+/*_______________________________________________OPERATIONS ON DATABASE____________________________________________________________________*/
 
+/*// childData will be the actual contents of the child
+        //var childData = childSnapshot.val();*/
+
+
+function getCategoriesListDBAndDisplay(parent){
+  var queryCategories =  firebase.database().ref(parent).orderByKey();
+  categoriesList=[];
+  queryCategories.once("value").then(
+    function(snapshot) {	
+    	snapshot.forEach(function(childSnapshot) {
+            // key will be names of categories
+            var key = childSnapshot.key;
+      	  categoriesList.push(key);        
+        });	 
+	    displayCategories();
+    });	
 }
 
+function createEmptyCategoryDB(categoryName) {
+  firebase.database().ref('Categories').child(categoryName).set(1);
+  firebase.database().ref('questions').child(categoryName).set({
+  material:"",
+  questions:""  
+  });
+}
+function deleteCategoryDB(categoryName){
+  firebase.database().ref('Categories').child(categoryName).set(null);
+  firebase.database().ref('questions').child(categoryName).set(null);
+  getCategoriesListDBAndDisplay("Categories");
+}
+function updateCategoryMaterialDB(categoryName,material){
+  firebase.database().ref('questions').child(categoryName).child('material').set(material);
+}
+
+function getCategoryDB(categoryName){
+		 
+}
 
 
 
