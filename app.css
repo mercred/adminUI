@@ -1,21 +1,18 @@
+
+
+html{
+overflow: visible;
+} 
 body {
+
 	font-family: "calibri";
     background: #efefef;
     padding: 32px;
     padding-top: 16px;
     color: #333;
 }
-h1,h3 {
-	text-align: center;
-	color: #787878;
-}
 
-#movieName
-{
-	width: 98%;
-	padding: 9px;
-	font-size: 16px;
-}
+
 .container {
     width:1000px;
     position: fixed;
@@ -25,6 +22,15 @@ h1,h3 {
     float: left;
 }
 .main_content {    
+    display: inline-block;
+    position: absolute;
+    float: left;
+}
+.questionsList{
+ display: inline-block;
+    float: left;
+} 
+.questionsBlock {    
     display: inline-block;
     position: absolute;
     float: left;
