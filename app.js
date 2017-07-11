@@ -1,29 +1,34 @@
 firebase.initializeApp(config);
 var categoriesList=[];
-var questionsList=[];
 var currentCategory;
-var currentCategoryBGText;
+
+var questionsList=[];
 var currentCategoryQuestions;
 var allQuestions;
 
 function main() {
-getCategoriesListDBAndDisplay("Categories");
+  getCategoriesListDBAndDisplay();
 }
-
 function displayCategories(){
+
   var html_list = document.getElementById("category_list");
   while (html_list.firstChild) {
     html_list.removeChild(html_list.firstChild);
   }  
   for(i=0;i<categoriesList.length;i++){
-    var entry = document.createElement('li');
-	entry.addEventListener('click', displayBackgroundMaterial);    
-	var underlineText = document.createElement("U");   
-    underlineText.appendChild(document.createTextNode(categoriesList[i]));
-	entry.appendChild(underlineText);	
+    var entry = document.createElement('li');	
+	
+	entry.addEventListener('click', displayBackgroundMaterial); 	 
+	var a = document.createElement('a');  
+	a.id=String(config.apiKey)+categoriesList[i];  
+    a.appendChild(document.createTextNode(categoriesList[i]));	
+    a.href = "#";	
+    entry.appendChild(a);	
     html_list.appendChild(entry);
   }
 }
+
+
 function displayQuestionList(){
 var html_list = document.getElementById("questionsList");
   while (html_list.firstChild) {
@@ -39,8 +44,7 @@ var html_list = document.getElementById("questionsList");
   }
 }
 
-var displayQuestion=function(e){
-	
+var displayQuestion=function(e){	
 	var currentQuestion= e.target.innerText;
 	console.log(currentQuestion);
 	var questionHTML=document.getElementById("question");	
@@ -50,15 +54,20 @@ var displayQuestion=function(e){
 
 //Event handler for selecting a category
 var displayBackgroundMaterial = function( e ){  
-	currentCategory= e.target.innerText;
-	backgr_elem=document.getElementById("background_material");
-	backgr_elem.style.display = "block";
-	document.getElementById("questions").style.display="none";	
-	getCategoryBackgroundMaterialDB(currentCategory);		  
+    
+	document.getElementById("questions_block").style.display="none";
+	e.target.classList.add("active");
+	if(document.getElementById(String(config.apiKey)+currentCategory)!=null){	   
+	   document.getElementById(String(config.apiKey)+currentCategory).classList.remove("active");	
+	}
+	currentCategory= e.target.innerText;	
+	console.log("Curent category is"+currentCategory);
+	getCategoryBackgroundMaterialDB();		  
 }
 
+
 function displayQuestions(){
-  document.getElementById("background_material").style.display = "none";
+  document.getElementById("background_materialHTML").style.display = "none";
   questionsHTML=document.getElementById("questions");
   questionsHTML.style.display="block"; 
   getAllQuestionsAndDisplayDB();  
@@ -73,11 +82,18 @@ function createEmptyCategory(){
   if(categoriesList.contains(categoryName)){
   	alert("Category with this name already exists!");  
   }else{
+  		if(categoryName==null|| categoryName==""){
+		alert("You must assign a name");		
+		}
+		else{
   	  createEmptyCategoryDB(categoryName);
-	  getCategoriesListDBAndDisplay("Categories");
-	  	    	  
+	  getCategoriesListDBAndDisplay();	
+	  }  	    	  
   }
 }
+
+
+var currentCategoryBGText;
 function saveBMChanges(){
  var bmText = document.getElementById("backgroundMaterialText").value;
  updateCategoryMaterialDB(currentCategory,bmText);

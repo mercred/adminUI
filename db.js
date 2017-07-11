@@ -1,14 +1,13 @@
-/*_______________________________________________OPERATIONS ON DATABASE____________________________________________________________________*/
+/*_______________________________________________CATEGORY_METHODS____________________________________________________________________*/
 
 
-function getCategoriesListDBAndDisplay(parent){
-  var queryCategories =  firebase.database().ref(parent).orderByKey();
-  categoriesList=[];
+function getCategoriesListDBAndDisplay(){
+  var queryCategories =  firebase.database().ref("Categories").orderByKey();  
   queryCategories.once("value").then(
     function(snapshot) {	
-    	snapshot.forEach(function(childSnapshot) {
-            // key will be names of categories
-            var key = childSnapshot.key;
+	    categoriesList=[];
+    	snapshot.forEach(function(childSnapshot) {		      
+          var key = childSnapshot.key;
       	  categoriesList.push(key);        
         });	 
 	    displayCategories();
@@ -28,19 +27,26 @@ function deleteCategoryDB(categoryName){
   getCategoriesListDBAndDisplay("Categories");
 }
 function updateCategoryMaterialDB(categoryName,material){
-  firebase.database().ref('questions').child(categoryName).child('material').set(material);  
+  firebase.database().ref('questions').child(categoryName).child('material').child('text').set(material);  
 }
+/*_______________________________________________END____________________________________________________________________*/
+
+
 
 function getCategoryQuestioinsDB(categoryName){
 		 var getCategoryBackgroundMaterial =  firebase.database().ref("questions").child(categoryName).child("questions").orderByKey();  
 
 }
 function getCategoryBackgroundMaterialDB(){
+  
   var getCategoryBackgroundMaterial =  firebase.database().ref("questions/"+currentCategory+"/material/text");  
     getCategoryBackgroundMaterial.once("value").then(
       function(snapshot) {  	    
-  	     currentCategoryBGText = snapshot.val();
-  		 document.getElementById("backgroundMaterialText").innerHTML=currentCategoryBGText;		 
+  	     currentCategoryBGText = snapshot.val();	
+		 console.log("Current category BG returned is"+currentCategoryBGText);	 
+  		 document.getElementById("backgroundMaterialText").value=currentCategoryBGText;		
+		 document.getElementById("background_materialHTML").style.display = "block";	
+		 		
       });			 
 }
 function getAllQuestionsAndDisplayDB(){
@@ -61,6 +67,9 @@ var allQuestionsQuery= firebase.database().ref("questions").child(currentCategor
        }
   );  	
 }
+
+/*_______________________________________________STORAGE_METHODS____________________________________________________________________*/
+  //  <img src="[url retrieved from the api]">
 
 
 
