@@ -2,7 +2,8 @@
 
 
 function getCategoriesListDBAndDisplay(){
-  var queryCategories =  firebase.database().ref("Categories").orderByKey();  
+  var queryCategories =  firebase.database().ref("Categories").orderByKey();
+  document.getElementById("background_materialHTML").style.display="none";  
   queryCategories.once("value").then(
     function(snapshot) {	
 	    categoriesList=[];
