@@ -54,8 +54,8 @@ function getAllQuestionsAndDisplayDB(){
 var allQuestionsQuery= firebase.database().ref("questions").child(currentCategory).child("questions").orderByKey();
   allQuestionsQuery.once("value").then(
       function(snapshot) {	
-  	    allQuestions=snapshot;
-  		var html_list = document.getElementById("questionsList");
+  	    currentCategoryQuestions=snapshot;
+  		var html_list = document.getElementById("question_list");
           while (html_list.firstChild) {
              html_list.removeChild(html_list.firstChild);
           }
@@ -63,8 +63,7 @@ var allQuestionsQuery= firebase.database().ref("questions").child(currentCategor
             var key = childSnapshot.key;
   			questionsList.push(key);
   	    });
-		displayQuestionList();
-					
+		displayQuestionList();					
        }
   );  	
 }

@@ -33,52 +33,42 @@
   <ul id="category_list" class="unorderedListMenu"> </ul>
 </ul>
 <div id="background_materialHTML">
-
-<table width=100% height=100%><tr>
-  <td width=40%>
-         <button onClick="deleteCategory()" style="display: block">Delete current category</button>
-         <button onClick="displayQuestions()" style="display: block">Show all questions</button>	  
-         <textarea id="backgroundMaterialText" style="height:80vh;width:90%"></textarea>
-         <button onClick="saveBMChanges()" style="display: block">Save changes</button>
-         <button onClick="discardBMChanges()" style="display: block">Discard changes</button>  
-  </td>
-  <td width=60% valign="top">
-  	  <table width=100% height=100%>
-  	  <tr>
-          <td width=40% valign="top">
-		        <tr>
-                <ul id="image_list_bg" ></ul>	</tr>
-				
-				<tr>
-				
-                Please select files to upload<br>
-				<input type="file" multiple onchange="uploadImagesBG(this.files)" id="inputFile" accept=".png" size="40" style="display: inline-block;>
-				</tr>
-                
-                			
+    
+    <table width=100% height=100%><tr>
+      <td width=40%>
+             <button onClick="deleteCategory()" style="display: block">Delete current category</button>
+             <button onClick="displayQuestions()" style="display: block">Show all questions</button>	  
+             <textarea id="backgroundMaterialText" style="height:80vh;width:90%"></textarea>
+             <button onClick="saveBMChanges()" style="display: block">Save changes</button>
+             <button onClick="discardBMChanges()" style="display: block">Discard changes</button>  
+      </td>
+      <td width=60% valign="top">
+      	          
+                   <div >
+    			   <div>
+    			    <div><ul id="image_list_bg" ></ul> </div>	
+    				<div>Please select files to upload<br>
+    				<input type="file" multiple onchange="uploadImagesBG(this.files)" id="inputFile" accept=".png" size="40" style="display: inline-block;>
+    				</div>
+    				</div>
+                             			
+              
+    		          <div>
+                      <img id="bgImage"style="height:40vh;"></img>				  
+    				  <button onClick="deleteCurrentImageBG()" style="display: none" id="deleteBGImageButton">Delete current image</button>
+    				  </div>
+    		 </div>
+    				  
           </td>
-          <td width=60% valign="top">
-		          
-                  <img id="bgImage"style="height:40vh;"></img>				  
-				  <button onClick="deleteCurrentImageBG()" style="display: none" id="deleteBGImageButton">Delete current image</button>
-				  
-				  
-          </td>
-        </tr>
-	  </table>  
-  
-  </td>
-</tr></table>
+    </tr></table>
 	 
 </div>
 
 <div id="questions_block"">
   <ul>
-    <input id="categoryName" placeholder="Enter name here">	  
-    <button onClick="createEmptyCategory()" >Create new</button>
-    <li><a class="active" href="">Home</a></li>
-    <li><a href="">News</a></li>    
-    <li><a href="">About</a></li>
+    <input id="questionsName" placeholder="Enter name here">	  
+    <button onClick="createEmptyQuestion()">Create new</button>
+	<ul id="question_list" class="unorderedListMenu"> </ul>    
   </ul>  
   <div style="margin-left:7%;padding:1px 16px; height:1000px;display:none;">
   <h2>Fixed Full-height Side Nav</h2>

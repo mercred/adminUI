@@ -7,9 +7,7 @@ var curCategImageList=[];
 var bgImageSelected = false; 
 
 
-var questionsList=[];
-var currentCategoryQuestions;
-var allQuestions;
+
 
 function main() {
   getCategoriesListDBAndDisplay();
@@ -41,10 +39,6 @@ var displayImageBG=function(e){
 	downloadAndDisplayImage(currentImageValue,"bgImage");		
 }
 
-
-
-
-
 function uploadImagesBG(files){
 
   for(var i=0; i<files.length;i++){
@@ -57,12 +51,6 @@ function uploadImagesBG(files){
   uploadFilesDB(files,"questions/"+currentCategory+"/material/imgs");
 }
    
-  
-
-
-  
-
-
 function returnImageName(existingArray,name){
    var currentName;
    var counter=0;		 
@@ -75,8 +63,22 @@ function returnImageName(existingArray,name){
    }
 }
 
+
+
+/*_______________________________________________QUESTIONS_START____________________________________________________________________*/
+var questionsList=[];
+var currentCategoryQuestions;
+
+function displayQuestions(){
+  document.getElementById("background_materialHTML").style.display = "none";
+  questionsHTML=document.getElementById("questions_block");
+  questionsHTML.style.display="block"; 
+  getAllQuestionsAndDisplayDB();  
+}
+
+
 function displayQuestionList(){
-var html_list = document.getElementById("questionsList");
+var html_list = document.getElementById("question_list");
   while (html_list.firstChild) {
     html_list.removeChild(html_list.firstChild);
   }  
@@ -93,11 +95,11 @@ var html_list = document.getElementById("questionsList");
 var displayQuestion=function(e){	
 	var currentQuestion= e.target.innerText; 
 	console.log(currentQuestion);
-	var questionHTML=document.getElementById("question");	
-	questionHTML.innerHTML=allQuestions.child(currentQuestion).child("text").value;		
+	/*var questionHTML=document.getElementById("question");	
+	questionHTML.innerHTML=allQuestions.child(currentQuestion).child("text").value;		*/
 }
 
-
+/*_______________________________________________QUESTIONS_END____________________________________________________________________*/
 //Event handler for selecting a category
 var displayBackgroundMaterial = function( e ){  
     
@@ -113,13 +115,6 @@ var displayBackgroundMaterial = function( e ){
 	getListOfBGImagesAndDisplayDB();  
 }
 
-
-function displayQuestions(){
-  document.getElementById("background_materialHTML").style.display = "none";
-  questionsHTML=document.getElementById("questions");
-  questionsHTML.style.display="block"; 
-  getAllQuestionsAndDisplayDB();  
-}
 
 function deleteCategory(){
     deleteCategoryDB(currentCategory);
