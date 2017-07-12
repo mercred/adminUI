@@ -1,6 +1,10 @@
 firebase.initializeApp(config);
 var categoriesList=[];
 var currentCategory;
+var bgImageList={};
+var currentImageKey;
+var curCategImageList=[];
+
 
 var questionsList=[];
 var currentCategoryQuestions;
@@ -28,6 +32,46 @@ function displayCategories(){
   }
 }
 
+var displayImageBG=function(e){	
+    document.getElementById("deleteBGImageButton").style.display="inline-block";  
+	currentImageKey= e.target.innerText;
+	var currentImageValue=(bgImageList[currentImageKey]);	
+	downloadAndDisplayImage(currentImageValue,"bgImage");		
+}
+
+
+
+
+
+function uploadImagesBG(files){
+
+  for(var i=0; i<files.length;i++){
+  		  var file = files[i];		  
+		  if(file.type!="image/png"){
+    		  alert("File "+ file +" is not png!");
+    		  return;
+		  }  
+  }    
+  uploadFilesDB(files,"questions/"+currentCategory+"/material/imgs");
+}
+   
+  
+
+
+  
+
+
+function returnImageName(existingArray,name){
+   var currentName;
+   var counter=0;		 
+   while(true){
+       currentName="img"+counter+name;
+       if(existingArray.contains(currentName)==false){
+	   	    return currentName;       
+       }
+	   counter=counter+1; 
+   }
+}
 
 function displayQuestionList(){
 var html_list = document.getElementById("questionsList");
@@ -62,7 +106,8 @@ var displayBackgroundMaterial = function( e ){
 	}
 	currentCategory= e.target.innerText;	
 	console.log("Curent category is"+currentCategory);
-	getCategoryBackgroundMaterialDB();		  
+	getCategoryBackgroundMaterialDB();		
+	getListOfBGImagesAndDisplayDB();  
 }
 
 
@@ -105,6 +150,16 @@ document.getElementById("backgroundMaterialText").value=currentCategoryBGText;
 }
 
 
+function uniqueID(){
+  function chr4(){
+    return Math.random().toString(16).slice(-4);
+  }
+  return chr4() + chr4() +
+    '-' + chr4() +
+    '-' + chr4() +
+    '-' + chr4() +
+    '-' + chr4() + chr4() + chr4();
+}
 
 
 Array.prototype.contains = function(obj) {

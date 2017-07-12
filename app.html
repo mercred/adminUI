@@ -26,11 +26,11 @@
 
 
 
-<ul id="category_block">
+<ul id="category_block" class="unorderedListMenu">
   <h3>Categories</h3>
   <input id="categoryName" placeholder="Enter name here">	  
   <button onClick="createEmptyCategory()" >Create new</button>
-  <ul id="category_list"> </ul>
+  <ul id="category_list" class="unorderedListMenu"> </ul>
 </ul>
 <div id="background_materialHTML">
 
@@ -43,14 +43,29 @@
          <button onClick="discardBMChanges()" style="display: block">Discard changes</button>  
   </td>
   <td width=60% valign="top">
-   <h2>Placeholder for storage funcitonality</h2>          
-          <p>Some text..</p>
-          <p>Some text..</p>
-          <p>Some text..</p>
-          <p>Some text..</p>
-          <p>Some text..</p>
-          <p>Some text..</p>
-          <p>Some text..</p>
+  	  <table width=100% height=100%>
+  	  <tr>
+          <td width=40% valign="top">
+		        <tr>
+                <ul id="image_list_bg" ></ul>	</tr>
+				
+				<tr>
+				
+                Please select files to upload<br>
+				<input type="file" multiple onchange="uploadImagesBG(this.files)" id="inputFile" accept=".png" size="40" style="display: inline-block;>
+				</tr>
+                
+                			
+          </td>
+          <td width=60% valign="top">
+		          
+                  <img id="bgImage"style="height:40vh;"></img>				  
+				  <button onClick="deleteCurrentImageBG()" style="display: none" id="deleteBGImageButton">Delete current image</button>
+				  
+				  
+          </td>
+        </tr>
+	  </table>  
   
   </td>
 </tr></table>
