@@ -66,13 +66,23 @@
 
 <div id="questions_block"">
   <ul>
-    <input id="questionsName" placeholder="Enter name here">	  
+    <input id="questionName" placeholder="Enter name here">	  
     <button onClick="createEmptyQuestion()">Create new</button>
 	<ul id="question_list" class="unorderedListMenu"> </ul>    
   </ul>  
   <div style="margin-left:10%;padding:1px 16px; height:1000px;">  
-     <div class="flex-container">
-      <div class="flex-item">Notice that this div element has a left margin of 25%. This is because the side navigation is set to 25% width. If you remove the margin,</div>
+     <div class="flex-container" id="questionContainer" style="visibility:hidden;">
+      <div class="flex-item">
+	  	   <div class="flex-containerRow"> 
+		    <div class="flex-itemRow"> 
+			<label>Question</label>
+			<textarea id="questionText" style=" width:600px;height:inherit;"></textarea>
+			<button onClick="saveBMChanges()" >Save changes</button>
+             <button onClick="discardBMChanges()" >Discard changes</button> 
+			</div>
+		    <div class="flex-itemRow"><img id="questionImg"></div>
+		   </div>
+	  </div>
       <div class="flex-item">erflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 li</div>
       <div class="flex-item">hat this div element has a left margin of 25%. This is because the side navigation is set to 25% width</div> 
     </div>  

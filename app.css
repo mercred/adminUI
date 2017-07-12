@@ -55,9 +55,25 @@ li a:hover:not(.active) {
     background-color: lightgrey;
 }
 
+
+.flex-containerRow {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction:row;
+    width: inherit;
+    height: inherit;
+    background-color: lightgrey;
+}
+.flex-itemRow {
+    background-color: cornflowerblue;
+    width: inherit;
+    height: 150px;
+    margin: 10px;
+}
+
 .flex-item {
     background-color: cornflowerblue;
     width: inherit;
-    height: 100px;
-    margin: 10px;
+    height: 200px;
+    margin: 20px;
 }

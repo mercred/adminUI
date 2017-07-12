@@ -95,8 +95,25 @@ var html_list = document.getElementById("question_list");
 var displayQuestion=function(e){	
 	var currentQuestion= e.target.innerText; 
 	console.log(currentQuestion);
+	document.getElementById("questionContainer").style.visibility="visible";	
 	/*var questionHTML=document.getElementById("question");	
 	questionHTML.innerHTML=allQuestions.child(currentQuestion).child("text").value;		*/
+}
+
+function createEmptyQuestion(){
+  var questionName = document.getElementById("questionName").value;
+  document.getElementById("questionName").value=null;
+  if(questionsList.contains(questionName)){
+  	alert("Question with this name already exists!");  
+  }else{
+  		if(questionName==null|| questionName==""){
+		alert("You must assign a name");		
+		}
+		else{
+  	  createEmptyQuestionDB(questionName);
+	  getAllQuestionsAndDisplayDB();	 
+	  }  	    	  
+  }
 }
 
 /*_______________________________________________QUESTIONS_END____________________________________________________________________*/
@@ -134,6 +151,7 @@ function createEmptyCategory(){
 	  }  	    	  
   }
 }
+
 
 
 var currentCategoryBGText;

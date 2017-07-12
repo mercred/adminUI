@@ -22,6 +22,21 @@ function createEmptyCategoryDB(categoryName) {
   questions:"Empty"  
   });
 }
+function createEmptyQuestionDB(questionName){
+	firebase.database().ref('questions').child(currentCategory).child('questions').child(questionName).set({
+      img:"",
+      answers:"",
+      questionId: questionName,
+      text:"" 
+  }); 
+
+}
+
+
+
+
+
+
 function deleteCategoryDB(categoryName){
   firebase.database().ref('Categories').child(categoryName).set(null);
   firebase.database().ref('questions').child(categoryName).set(null);
@@ -53,8 +68,8 @@ function getCategoryBackgroundMaterialDB(){
 function getAllQuestionsAndDisplayDB(){
 var allQuestionsQuery= firebase.database().ref("questions").child(currentCategory).child("questions").orderByKey();
   allQuestionsQuery.once("value").then(
-      function(snapshot) {	
-  	    currentCategoryQuestions=snapshot;
+      function(snapshot) {	  
+	  questionsList=[];	    
   		var html_list = document.getElementById("question_list");
           while (html_list.firstChild) {
              html_list.removeChild(html_list.firstChild);
