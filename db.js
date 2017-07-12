@@ -88,20 +88,24 @@ function getQuestionAndDisplayDB(currentQuestion){
   oneQuestionQuery.once("value").then(
         function(snapshot) {   	  	   
         	snapshot.forEach(function(childSnapshot) {
-              var key = childSnapshot.key;
-			  var value=childSnapshot.val();
-			  
+              key=childSnapshot.key;			  
 			  if(key=="answers"){
-			   console.log(key);
-			  //goto answers
-			  }else{
+			     childSnapshot.forEach(function(answerSnapshot){
+				      console.log("Creating row for"+answerSnapshot.key);
+					  createAnswerRow(answerSnapshot.key,"questionContainer");
+					  var answer=answerSnapshot.val();
+					  console.log(answer);
+					  document.getElementById("textarea"+answerSnapshot.key).innerHTML=answer["text"];
+					  downloadAndDisplayImage(answer["img"],"image"+answerSnapshot.key);					 					  		    
+				 });//childSnapshot.forEach end	
+				 createHugeButton("questionContainer");   
+			  } else{
     			  if(key=="img"){
-    			   //load image
-				   console.log(value);
-				   downloadAndDisplayImage(value,"questionImg");				   
+    			   //load image				   
+				   downloadAndDisplayImage(childSnapshot.val(),"questionImg");				   
 				   
     			  } else{
-    			  	if(key=="text")  document.getElementById("questionText").innerHTML=value;
+    			  	if(key=="text")  document.getElementById("questionText").innerHTML=childSnapshot.val();
     			  }
 			  }
     			

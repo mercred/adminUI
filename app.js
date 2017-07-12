@@ -99,26 +99,49 @@ var displayQuestion=function(e){
 	getQuestionAndDisplayDB(currentQuestion);		
 }
 
+function createHugeButton(parentElementName){
+  var btn = document.createElement("BUTTON"); 
+  btn.style.width="inherit";
+  btn.style.height="200";
+  var t = document.createTextNode("ADD NEW ANSWER");      
+  btn.appendChild(t); 
+  var parentNode = document.getElementById(parentElementName);
+  parentNode.appendChild(btn);
+}
 
-function createAnswerRow(name){
-
+function createAnswerRow(answerName,parentElementName){
+ 
+  var mainRow = document.createElement("div");
+  mainRow.class="flex-item";
+  var containerRow = document.createElement("div");
+  containerRow.class="flex-containerRow";
   var div = document.createElement("div");
   div.class="flex-itemRow";
   var txt=document.createElement("textarea");
     txt.style.width="600px";
     txt.style.height="inherit";
-	txt.setAttribute("id", "textarea"+name);
+	txt.setAttribute("id", "textarea"+answerName);
   var saveButton=document.createElement("button");
   saveButton.innerHTML="Save changes";
   var discardButton=document.createElement("button");
-  saveButton.innerHTML="Discard changes";
+  discardButton.innerHTML="Discard changes";
   var deleteButton=document.createElement("button");
-  saveButton.innerHTML="Delete current question";
+  deleteButton.innerHTML="Delete current answer";
   div.appendChild(txt);
   div.appendChild(saveButton);
   div.appendChild(discardButton);
   div.appendChild(deleteButton);
-  return div; 
+  var div2 = document.createElement("div");
+  div2.class="flex-itemRow";
+  var image = document.createElement("img");
+  image.setAttribute("id", "image"+answerName);
+  div2.appendChild(image);
+  containerRow.appendChild(div);
+  containerRow.appendChild(div2);
+  mainRow.appendChild(containerRow);
+    
+  var parentNode = document.getElementById(parentElementName);
+  parentNode.appendChild(mainRow);
 }
 
 
