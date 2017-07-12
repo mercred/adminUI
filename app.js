@@ -36,6 +36,7 @@ var displayImageBG=function(e){
     document.getElementById("deleteBGImageButton").style.display="inline-block";  
 	currentImageKey= e.target.innerText;
 	var currentImageValue=(bgImageList[currentImageKey]);	
+	console.log("currentImageValue is "+currentImageValue);
 	downloadAndDisplayImage(currentImageValue,"bgImage");		
 }
 
@@ -93,12 +94,33 @@ var html_list = document.getElementById("question_list");
 }
 
 var displayQuestion=function(e){	
-	var currentQuestion= e.target.innerText; 
-	console.log(currentQuestion);
-	document.getElementById("questionContainer").style.visibility="visible";	
-	/*var questionHTML=document.getElementById("question");	
-	questionHTML.innerHTML=allQuestions.child(currentQuestion).child("text").value;		*/
+	var currentQuestion= e.target.innerText;	
+	document.getElementById("questionContainer").style.visibility="visible";
+	getQuestionAndDisplayDB(currentQuestion);		
 }
+
+
+function createAnswerRow(name){
+
+  var div = document.createElement("div");
+  div.class="flex-itemRow";
+  var txt=document.createElement("textarea");
+    txt.style.width="600px";
+    txt.style.height="inherit";
+	txt.setAttribute("id", "textarea"+name);
+  var saveButton=document.createElement("button");
+  saveButton.innerHTML="Save changes";
+  var discardButton=document.createElement("button");
+  saveButton.innerHTML="Discard changes";
+  var deleteButton=document.createElement("button");
+  saveButton.innerHTML="Delete current question";
+  div.appendChild(txt);
+  div.appendChild(saveButton);
+  div.appendChild(discardButton);
+  div.appendChild(deleteButton);
+  return div; 
+}
+
 
 function createEmptyQuestion(){
   var questionName = document.getElementById("questionName").value;

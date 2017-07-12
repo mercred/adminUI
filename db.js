@@ -83,6 +83,51 @@ var allQuestionsQuery= firebase.database().ref("questions").child(currentCategor
   );  	
 }
 
+function getQuestionAndDisplayDB(currentQuestion){
+ var oneQuestionQuery= firebase.database().ref("questions").child(currentCategory).child("questions").child(currentQuestion).orderByKey();
+  oneQuestionQuery.once("value").then(
+        function(snapshot) {   	  	   
+        	snapshot.forEach(function(childSnapshot) {
+              var key = childSnapshot.key;
+			  var value=childSnapshot.val();
+			  
+			  if(key=="answers"){
+			   console.log(key);
+			  //goto answers
+			  }else{
+    			  if(key=="img"){
+    			   //load image
+				   console.log(value);
+				   downloadAndDisplayImage(value,"questionImg");				   
+				   
+    			  } else{
+    			  	if(key=="text")  document.getElementById("questionText").innerHTML=value;
+    			  }
+			  }
+    			
+    	    });  						
+         }
+    );  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getListOfBGImagesAndDisplayDB(){
 var allImagesQuery= firebase.database().ref("questions/"+currentCategory+"/material/imgs");
 allImagesQuery.once("value").then(
@@ -120,12 +165,14 @@ allImagesQuery.once("value").then(
 
 /*_______________________________________________STORAGE_METHODS____________________________________________________________________*/
   
+  
+//  
 //downloads image with name ImageStorageName and loads into img with id ImageHTML
 function downloadAndDisplayImage(ImageStorageName,ImageHTML){
 		 var imageRef = firebase.storage().ref(ImageStorageName).getDownloadURL().then(function(url) {         
-    		 // url is the download URL for our image
-			 console.log("url"+url);
+    		 console.log("ImageHTML is "+ ImageHTML);
            var img = document.getElementById(ImageHTML);
+		   console.log("create img  is "+ img);
            img.src = url;
   		 }).catch(function(error) {
               alert("During downloading of background material images following error occured: "+error);

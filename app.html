@@ -18,8 +18,7 @@
   };
   
 </script>
-<script type="text/javascript" src="app.js"></script> 
-<script type="text/javascript" src="db.js"></script> 
+
 </head>
 
 <body onload="main()">
@@ -74,13 +73,14 @@
      <div class="flex-container" id="questionContainer" style="visibility:hidden;">
       <div class="flex-item">
 	  	   <div class="flex-containerRow"> 
-		    <div class="flex-itemRow"> 
-			<label>Question</label>
-			<textarea id="questionText" style=" width:600px;height:inherit;"></textarea>
-			<button onClick="saveBMChanges()" >Save changes</button>
-             <button onClick="discardBMChanges()" >Discard changes</button> 
-			</div>
-		    <div class="flex-itemRow"><img id="questionImg"></div>
+    		    <div class="flex-itemRow"> 
+        			<label>Question</label>
+        			<textarea id="questionText" style=" width:600px;height:inherit;"></textarea>
+        			<button onClick="saveChange()" >Save changes</button>
+                     <button onClick="discardBMChanges()" >Discard changes</button> 
+        			 <button onClick="deleteCurrentQuestion()">Delete current question</button> 
+    			</div>
+		    <div class="flex-itemRow"><img id="questionImg"></div>			 
 		   </div>
 	  </div>
       <div class="flex-item">erflow:auto to sidenav. This will add a scrollbar when the sidenav is too long (for example if it has over 50 li</div>
@@ -89,7 +89,8 @@
   </div>
 </div>
 
-	
+	<script type="text/javascript" src="app.js"></script> 
+<script type="text/javascript" src="db.js"></script> 
 	
 </body>
 
