@@ -42,12 +42,12 @@ function getCategoryBackgroundMaterialDB(){
   var getCategoryBackgroundMaterial =  firebase.database().ref("questions/"+currentCategory+"/material/text");  
     getCategoryBackgroundMaterial.once("value").then(
       function(snapshot) {  	    
-  	     currentCategoryBGText = snapshot.val();	
-		 console.log("Current category BG returned is"+currentCategoryBGText);	 
+  	     currentCategoryBGText = snapshot.val();			  
   		 document.getElementById("backgroundMaterialText").value=currentCategoryBGText;		
 		 document.getElementById("background_materialHTML").style.display = "block";	
 		 		
-      });			 
+      });	
+	   if(bgImageSelected==true)document.getElementById("bgImage").src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";		 
 }
 function getAllQuestionsAndDisplayDB(){
 var allQuestionsQuery= firebase.database().ref("questions").child(currentCategory).child("questions").orderByKey();
@@ -72,7 +72,7 @@ function getListOfBGImagesAndDisplayDB(){
 var allImagesQuery= firebase.database().ref("questions/"+currentCategory+"/material/imgs");
 allImagesQuery.once("value").then(
       function(snapshot) {
-	  console.log("SUCCESS");	 
+	  	 
 	  var html_list = document.getElementById("image_list_bg");
       while (html_list.firstChild) {
         html_list.removeChild(html_list.firstChild);
@@ -89,6 +89,7 @@ allImagesQuery.once("value").then(
           entry.appendChild(document.createTextNode(key));          
           html_list.appendChild(entry);  			
     	    });
+			
 			
        }
   ).catch(function(error) {

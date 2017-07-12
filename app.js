@@ -4,6 +4,7 @@ var currentCategory;
 var bgImageList={};
 var currentImageKey;
 var curCategImageList=[];
+var bgImageSelected = false; 
 
 
 var questionsList=[];
@@ -33,6 +34,7 @@ function displayCategories(){
 }
 
 var displayImageBG=function(e){	
+    bgImageSelected=true;
     document.getElementById("deleteBGImageButton").style.display="inline-block";  
 	currentImageKey= e.target.innerText;
 	var currentImageValue=(bgImageList[currentImageKey]);	
@@ -89,7 +91,7 @@ var html_list = document.getElementById("questionsList");
 }
 
 var displayQuestion=function(e){	
-	var currentQuestion= e.target.innerText;
+	var currentQuestion= e.target.innerText; 
 	console.log(currentQuestion);
 	var questionHTML=document.getElementById("question");	
 	questionHTML.innerHTML=allQuestions.child(currentQuestion).child("text").value;		
@@ -99,7 +101,8 @@ var displayQuestion=function(e){
 //Event handler for selecting a category
 var displayBackgroundMaterial = function( e ){  
     
-	document.getElementById("questions_block").style.display="none";
+	document.getElementById("questions_block").style.display="none";	
+	
 	e.target.classList.add("active");
 	if(document.getElementById(String(config.apiKey)+currentCategory)!=null){	   
 	   document.getElementById(String(config.apiKey)+currentCategory).classList.remove("active");	
